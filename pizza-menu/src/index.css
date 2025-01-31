@@ -7,6 +7,7 @@
 
 :root {
   --header-color: #edc84b;
+  --text-color: #252525;
 }
 
 body {
@@ -20,12 +21,21 @@ body {
   justify-content: center;
 }
 
+.container {
+  max-width: 52%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .header {
   color: var(--header-color);
   text-transform: uppercase;
   font-size: 3.6em;
   font-weight: 100;
   margin-top: 25px;
+  margin-bottom: 50px;
   position: relative;
 }
 
@@ -47,4 +57,122 @@ body {
   top: 2.4rem;
   right: -1em;
   background-color: var(--header-color);
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.menu-heading {
+  display: block;
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: 500;
+  letter-spacing: 3px; /* set spacing between the letters */
+  margin-bottom: 50px;
+}
+
+.menu-heading::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 140px;
+  top: -0.6rem;
+  background-color: var(--text-color);
+}
+
+.menu-heading::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 140px;
+  top: 1.8em;
+  left: 40%;
+  background-color: var(--text-color);
+}
+
+.menu-description {
+  color: var(--text-color);
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.pizzas-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.pizza-card {
+  display: flex;
+  width: 370px;
+  height: 120px;
+}
+
+.pizza-card img {
+  width: 120px;
+  height: 120px;
+}
+
+.pizza-card-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 10px 5px 30px;
+}
+
+.pizza-card-details .name {
+  color: var(--text-color);
+  font-size: 1.3em;
+  margin-bottom: 6px;
+}
+
+.pizza-card-details .ingredients {
+  color: var(--text-color);
+  font-size: 0.9em;
+  font-weight: 100;
+  font-style: italic;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+.footer {
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.footer-btn {
+  padding: 8px 20px;
+  border: none;
+  background-color: var(--header-color);
+  cursor: pointer;
+}
+
+.footer-btn:hover {
+  background-color: #e9bb24;
+}
+
+.sold-out,
+.sold-out .name,
+.sold-out .ingredients,
+.sold-out img {
+  color: #888;
+  filter: grayscale(1);
 }

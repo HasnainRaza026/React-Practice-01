@@ -58,17 +58,18 @@ function App() {
 }
 
 function Header() {
-  return <header className="header">Fast React Pizza Co.</header>;
+  return <header className="header">Fast React Pizza Co. </header>;
 }
+
 function Menu() {
   return (
-    <main>
-      <h2>Our menu</h2>
-      <p>
+    <main className="main">
+      <p className="menu-heading">Our menu</p>
+      <p className="menu-description">
         Authentic Italian cuisine. 6 creative dishes to choose from. All from
         our stone oven, all organic, all delicious.
       </p>
-      <ul>
+      <ul className="pizzas-container">
         {pizzaData?.map((data) => (
           <Pizza pizza={data} key={data.name} />
         ))}
@@ -78,13 +79,16 @@ function Menu() {
 }
 
 function Pizza({ pizza }) {
-  // if (pizza.soldOut) return null;
   return (
-    <li>
+    <li className={`pizza-card ${pizza.soldOut ? "sold-out" : ""}`}>
       <img src={pizza.photoName} alt="pizza-image" />
-      <h3>{pizza.name}</h3>
-      <p>{pizza.ingredients}</p>
-      <p>{pizza.soldOut ? "SOLD OUT" : pizza.price}</p>
+      <div className="pizza-card-details">
+        <div>
+          <p className="name">{pizza.name}</p>
+          <p className="ingredients">{pizza.ingredients}</p>
+        </div>
+        <p>{pizza.soldOut ? "SOLD OUT" : pizza.price}</p>
+      </div>
     </li>
   );
 }
@@ -99,7 +103,7 @@ function Footer() {
       {isOPen ? (
         <SubFooter close={closeHours} />
       ) : (
-        <p>
+        <p className="footer">
           We are happy to welcome you between {openHours}:00 and {closeHours}:00
         </p>
       )}
@@ -109,10 +113,14 @@ function Footer() {
 
 function SubFooter({ close }) {
   return (
-    <div>
-      <p>We are open untill {close}:00. Come visit us or order online. </p>
-      <button>Order</button>
-    </div>
+    <>
+      <p className="footer">
+        We are open untill {close}:00. Come visit us or order online.{" "}
+      </p>
+      <div className="btn">
+        <button className="footer-btn">Order now</button>
+      </div>
+    </>
   );
 }
 
