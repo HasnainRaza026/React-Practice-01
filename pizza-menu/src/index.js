@@ -68,26 +68,52 @@ function Menu() {
         Authentic Italian cuisine. 6 creative dishes to choose from. All from
         our stone oven, all organic, all delicious.
       </p>
-      <Pizza pizza={pizzaData[0]} />
-      <Pizza pizza={pizzaData[1]} />
-      <Pizza pizza={pizzaData[2]} />
+      <ul>
+        {pizzaData?.map((data) => (
+          <Pizza pizza={data} key={data.name} />
+        ))}
+      </ul>
     </main>
   );
 }
 
 function Pizza({ pizza }) {
+  // if (pizza.soldOut) return null;
   return (
-    <div>
+    <li>
       <img src={pizza.photoName} alt="pizza-image" />
       <h3>{pizza.name}</h3>
       <p>{pizza.ingredients}</p>
-      <p>{pizza.price}</p>
-    </div>
+      <p>{pizza.soldOut ? "SOLD OUT" : pizza.price}</p>
+    </li>
   );
 }
 
 function Footer() {
-  return <footer>We're happy to welcome you between 12:00 and 22:00.</footer>;
+  const hour = new Date().getHours();
+  const openHours = 12;
+  const closeHours = 22;
+  const isOPen = hour >= openHours && hour <= closeHours;
+  return (
+    <footer>
+      {isOPen ? (
+        <SubFooter close={closeHours} />
+      ) : (
+        <p>
+          We are happy to welcome you between {openHours}:00 and {closeHours}:00
+        </p>
+      )}
+    </footer>
+  );
+}
+
+function SubFooter({ close }) {
+  return (
+    <div>
+      <p>We are open untill {close}:00. Come visit us or order online. </p>
+      <button>Order</button>
+    </div>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
