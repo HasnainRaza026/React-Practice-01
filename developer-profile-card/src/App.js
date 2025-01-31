@@ -1,5 +1,33 @@
 import "./index.css";
 
+const skills = [
+  {
+    skill: "HTML+CSS",
+    color: "#2257e6",
+    emoji: "💪",
+  },
+  {
+    skill: "JavaScript",
+    color: "#ead316",
+    emoji: "💪",
+  },
+  {
+    skill: "Django",
+    color: "#b9d7a3",
+    emoji: "👍",
+  },
+  {
+    skill: "Git and Github",
+    color: "#e7452b",
+    emoji: "👍",
+  },
+  {
+    skill: "React",
+    color: "#53d4f7",
+    emoji: "💪",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -28,20 +56,18 @@ function Data() {
         like to watch memes, Youtube videos.
       </p>
       <div className="skills">
-        <Skills skill="HTML+CSS" color="#2257e6" />
-        <Skills skill="JavaScript" color="#ead316" />
-        <Skills skill="Django" color="#b9d7a3" />
-        <Skills skill="Git & Github" color="#e7452b" />
-        <Skills skill="React" color="#53d4f7" />
+        {skills.map((skill) => (
+          <Skills data={skill} />
+        ))}
       </div>
     </div>
   );
 }
 
-function Skills({ skill, color }) {
+function Skills({ data }) {
   return (
-    <div className="skill" style={{ backgroundColor: color }}>
-      <p>{skill}</p>
+    <div className="skill" style={{ backgroundColor: data.color }}>
+      <p>{`${data.skill} ${data.emoji}`}</p>
     </div>
   );
 }
