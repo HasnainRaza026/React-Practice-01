@@ -69,3 +69,16 @@ body {
   background-color: #6f46f1;
   color: white;
 }
+
+.close-btn {
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.display {
+  display: none;
+}
