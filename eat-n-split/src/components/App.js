@@ -7,19 +7,19 @@ import Split from "./Split";
 const initialFriends = [
   {
     id: 1,
-    name: "Clark",
+    name: "Muhammad",
     image: "https://i.pravatar.cc/50?u=118836",
     balance: -7,
   },
   {
     id: 2,
-    name: "Sarah",
-    image: "https://i.pravatar.cc/50?u=933372",
+    name: "Hasnain",
+    image: "https://i.pravatar.cc/50?u=933373",
     balance: 20,
   },
   {
     id: 3,
-    name: "Anthony",
+    name: "Raza",
     image: "https://i.pravatar.cc/50?u=499476",
     balance: 0,
   },
@@ -46,7 +46,14 @@ function App() {
         />
       )}
 
-      {isOpenSplit && <Split onSplit={setIsOpenSplit} friends={friends} />}
+      {isOpenSplit && (
+        <Split
+          splitId={isOpenSplit}
+          onSplitId={setIsOpenSplit}
+          friends={friends}
+          onEditFriend={setFriends}
+        />
+      )}
     </div>
   );
 }

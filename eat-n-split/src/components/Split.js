@@ -1,79 +1,103 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function Split({ onSplitId, friends }) {
+export default function Split({ splitId, onSplitId, friends, onEditFriend }) {
   const [bill, setBill] = useState("");
   const [myExpense, setMyExpense] = useState("");
-  const [friendExpense, setFriendExpense] = useState("");
   const [pay, setPay] = useState("You");
 
-  useEffect(() => {
-    const billValue = Number(bill) || 0;
-    const myExpenseValue = Number(myExpense) || 0;
-    setFriendExpense(billValue - myExpenseValue);
-  }, [bill, myExpense]);
+  // Find the friend by id
+  const friend = friends.find((f) => f.id === splitId);
+  if (!friend) return null;
 
-  const handleUserInput = (event) => {
+  const billValue = parseFloat(bill) || 0;
+  const myExpenseValue = parseFloat(myExpense) || 0;
+  const friendExpense = billValue - myExpenseValue;
+
+  // Handle changes on inputs/select
+  const handleChange = (event) => {
     const { dataset, value } = event.target;
-    if (dataset.id === "pay") {
-      setPay(value);
-      return;
+    switch (dataset.id) {
+      case "bill":
+        setBill(value);
+        break;
+      case "myExpense":
+        setMyExpense(value);
+        break;
+      case "pay":
+        setPay(value);
+        break;
+      default:
+        break;
     }
-    dataset.id === "bill" ? setBill(value) : setMyExpense(value);
   };
 
-  const handleSubmit = () => {
-    if (!bill || !myExpense || !friendExpense || !pay) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (bill === "" || myExpense === "" || pay === "") {
       return;
     }
 
-    const newArray = friends.map((friend) =>
-      friend.id === onSplitId ? { ...friend, balance: 0 } : friend
+    const newBalance =
+      pay === "You" ? billValue - myExpenseValue : -myExpenseValue;
+
+    const updatedFriends = friends.map((f) =>
+      f.id === splitId ? { ...f, balance: newBalance } : f
     );
+    onEditFriend(updatedFriends);
+
+    // Reset the form
+    setBill("");
+    setMyExpense("");
+    setPay("You");
+    onSplitId(null);
   };
 
   return (
     <div className="split-main-container">
       <div className="content">
-        {friends.map((friend) =>
-          friend.id === onSplitId ? <Heading name={friend.name} /> : null
-        )}
-        <form onSubmit={handleSubmit}>
+        <Heading name={friend.name} />
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-fields">
             <Fields
               label={"💰 Bill value"}
               isDisabled={false}
               isInput={true}
-              onInput={handleUserInput}
+              onInput={handleChange}
               inputVal={bill}
               id={"bill"}
+              name={friend.name}
             />
             <Fields
               label={"🧍‍♀️ Your expense"}
               isDisabled={false}
               isInput={true}
-              onInput={handleUserInput}
+              onInput={handleChange}
               inputVal={myExpense}
               id={"myExpense"}
+              name={friend.name}
             />
             <Fields
               label={"👫 Sarah's expense"}
               isDisabled={true}
               isInput={true}
-              onInput={handleUserInput}
+              onInput={handleChange}
               inputVal={friendExpense}
               id={"friendExpense"}
+              name={friend.name}
             />
             <Fields
               label={"🤑 Who is paying the bill"}
               isDisabled={false}
               isInput={false}
-              onInput={handleUserInput}
+              onInput={handleChange}
               inputVal={pay}
               id={"pay"}
+              name={friend.name}
             />
           </div>
           <div className="form-buttons">
-            <Buttons onSplitId={onSplitId} onSubmit={handleSubmit} />
+            <Buttons onSplitId={onSplitId} />
           </div>
         </form>
       </div>
@@ -85,7 +109,7 @@ function Heading({ name }) {
   return <p className="split-heading">SPLIT A BILL WITH {name}</p>;
 }
 
-function Fields({ label, isDisabled, isInput, inputVal, onInput, id }) {
+function Fields({ label, isDisabled, isInput, inputVal, onInput, id, name }) {
   return (
     <div className="field">
       <label>{label}</label>
@@ -100,18 +124,19 @@ function Fields({ label, isDisabled, isInput, inputVal, onInput, id }) {
       ) : (
         <select value={inputVal} data-id={id} onChange={(e) => onInput(e)}>
           <option value="You">You</option>
-          <option value="Hasnain">Hasnain</option>
+          <option value="Hasnain">{name}</option>
         </select>
       )}
     </div>
   );
 }
 
-function Buttons({ onSplitId, onSubmit }) {
+// setting the type="submit" on a button in a form will automatically add onSubmit or onClick event listner in the button, with the handler function of that one defined in form tag
+function Buttons({ onSplitId }) {
   return (
     <>
       <button onClick={() => onSplitId(null)}>Close</button>
-      <button onClick={onSubmit}>Split</button>
+      <button type="submit">Split</button>
     </>
   );
 }

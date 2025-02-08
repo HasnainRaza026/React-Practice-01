@@ -154,7 +154,7 @@ select:focus {
   border: 1px solid #ff922b;
 }
 
-.form-fields .form-buttons {
+.form-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
@@ -170,12 +170,34 @@ select:focus {
   background-color: var(--primary-color);
   border-radius: 8px;
   padding: 30px 35px;
+
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0); /* Start scaled down and invisible */
+  opacity: 0;
+
+  /* Apply the pop-up animation */
+  animation: popUpAnimation 0.3s forwards ease-out;
+}
+
+@keyframes popUpAnimation {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 
 .split-main-container .split-heading {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .split-main-container .form-buttons {
