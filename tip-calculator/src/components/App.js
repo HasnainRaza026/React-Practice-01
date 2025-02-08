@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CalculatedTip from "./CalculatedTip";
-import "./index.css";
+import "../index.css";
 import Inputs from "./Inputs";
 
 function App() {
