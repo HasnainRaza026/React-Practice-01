@@ -44,7 +44,7 @@ function RenderFriends({ friend, onOpenSplit }) {
           )}
         </div>
       </div>
-      <button onClick={() => onOpenSplit((prev) => !prev)}>Select</button>
+      <button onClick={() => onOpenSplit(friend.id)}>Select</button>
     </div>
   );
 }

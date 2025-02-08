@@ -177,3 +177,24 @@ select:focus {
   font-weight: bold;
   text-align: center;
 }
+
+.split-main-container .form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.split-main-container .form-buttons button {
+  width: 150px;
+}
+
+.split-main-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.split-main-container .content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

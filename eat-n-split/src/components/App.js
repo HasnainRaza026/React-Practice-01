@@ -28,10 +28,10 @@ const initialFriends = [
 function App() {
   const [friends, setFriends] = useState(initialFriends);
   const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const [isOpenSplit, setIsOpenSplit] = useState(true);
+  const [isOpenSplit, setIsOpenSplit] = useState(null);
   return (
     <div className="friends-main-container">
-      {/* <Friends
+      <Friends
         friends={friends}
         isOpenAdd={isOpenAdd}
         onOpenAdd={setIsOpenAdd}
@@ -44,9 +44,9 @@ function App() {
           friends={friends}
           onAddFriends={setFriends}
         />
-      )} */}
+      )}
 
-      {isOpenSplit && <Split />}
+      {isOpenSplit && <Split onSplit={setIsOpenSplit} friends={friends} />}
     </div>
   );
 }
