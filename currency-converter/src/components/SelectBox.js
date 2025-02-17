@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Select({ children }) {
+export function SelectBox({ children }) {
   return <div className="select-main">{children}</div>;
 }
 
@@ -20,23 +20,33 @@ export function SelectCurrency({
       <div
         className="selected-currency"
         onClick={() => setIsOpen((prev) => !prev)}
+        role="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
       >
         <div>
-          <img src={selectedCurrency.flag} alt="flag" />
-          <p>{selectedCurrency.symbol}</p>
+          <img
+            src={selectedCurrency.flag}
+            alt={`${selectedCurrency.currency} flag`}
+          />
+          <p>{selectedCurrency.currency}</p>
         </div>
         <img
           className="img-expand"
           src="./Assets/expand_arrow.svg"
-          alt="expand"
+          alt="Expand options"
         />
       </div>
+
       {isOpen && (
         <ul>
           {currencyData.map((elem) => (
-            <li key={elem.symbol} onClick={() => handleOnSelectCurrency(elem)}>
+            <li
+              key={elem.currency}
+              onClick={() => handleOnSelectCurrency(elem)}
+            >
               <img src={elem.flag} alt="flag" />
-              <p>{elem.symbol}</p>
+              <p>{elem.currency}</p>
             </li>
           ))}
         </ul>
@@ -52,11 +62,10 @@ export function ReverseButton({
   setToCurrency,
 }) {
   const handleOnCurrencySwap = () => {
-    const newFromCurrency = fromCurrency;
-    const newToCurrency = toCurrency;
-    setFromCurrency(newToCurrency);
-    setToCurrency(newFromCurrency);
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
   };
+
   return (
     <button onClick={handleOnCurrencySwap}>
       <img src="./Assets/arrow.svg" alt="button" />
