@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../index.css";
 import { SelectBox, SelectCurrency, ReverseButton } from "./SelectBox";
 import { ResultBox, Input, Result } from "./ResultBox";
+import { useFetch } from "../hooks/useFetch";
 
 const currencyData = [
   {
@@ -30,7 +31,10 @@ function App() {
   const [fromCurrency, setFromCurrency] = useState(currencyData[0]);
   const [toCurrency, setToCurrency] = useState(currencyData[1]);
   const [input, setInput] = useState("");
-  const [conversionResult, setConversionResult] = useState(0);
+  const [conversionResult] = useFetch(
+    `https://api.frankfurter.app/latest?amount=${input}&from=${fromCurrency.currency}&to=${toCurrency.currency}`,
+    toCurrency
+  );
 
   useEffect(() => {
     if (fromCurrency.currency === toCurrency.currency) {
@@ -40,36 +44,6 @@ function App() {
       setToCurrency(newToCurrency);
     }
   }, [fromCurrency, toCurrency]);
-
-  useEffect(() => {
-    const inputValue = parseFloat(input);
-    if (isNaN(inputValue) || inputValue <= 0) {
-      setConversionResult(0);
-      return;
-    }
-
-    const controller = new AbortController();
-    const convert = async () => {
-      try {
-        const response = await fetch(
-          `https://api.frankfurter.app/latest?amount=${inputValue}&from=${fromCurrency.currency}&to=${toCurrency.currency}`,
-          { signal: controller.signal }
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-        const data = await response.json();
-        setConversionResult(data.rates[toCurrency.currency]);
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          console.error(err.message);
-        }
-      }
-    };
-
-    convert();
-    return () => controller.abort();
-  }, [input, fromCurrency, toCurrency]);
 
   return (
     <div className="app">

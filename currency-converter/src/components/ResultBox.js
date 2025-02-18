@@ -3,11 +3,20 @@ export function ResultBox({ children }) {
 }
 
 export function Input({ input, setInput }) {
+  const handleSetInput = (event) => {
+    const inputValue = parseFloat(event.target.value);
+    if (isNaN(inputValue) || inputValue <= 0) {
+      setInput(0);
+      return;
+    }
+    setInput(event.target.value);
+  };
+
   return (
     <input
       type="text"
       value={input}
-      onChange={(event) => setInput(event.target.value)}
+      onChange={(event) => handleSetInput(event)}
     />
   );
 }
