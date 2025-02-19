@@ -9,6 +9,9 @@ package.json
 /coverage
 test.js
 
+# enviroment variables
+.env
+
 # production
 /build
 
