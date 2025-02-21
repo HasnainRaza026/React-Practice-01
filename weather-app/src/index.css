@@ -1,7 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --secondary-color: #e9ebf6;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto";
+  color: #222222;
 }
 
 #root {
@@ -10,4 +21,131 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.app {
+  width: 1029px;
+  height: 496px;
+  border: 2px solid rgba(0, 0, 0, 50%);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+}
+
+.input,
+.output {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.input p {
+  font-size: 3em;
+  font-weight: bold;
+  font-family: "Inknut Antiqua";
+  letter-spacing: 0.2em;
+}
+
+.input input {
+  width: 227px;
+  height: 43px;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 20px 10px;
+}
+
+.input input::placeholder {
+  font-size: 1.25em;
+  font-weight: 600;
+  font-family: "Roboto";
+  color: rgba(0, 0, 0, 35%);
+}
+
+.input input:focus {
+  outline: 1px solid black;
+}
+
+.output p {
+  font-size: 2em;
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 120px;
+  height: 151px;
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  padding: 15px 10px;
+}
+
+.weather .icon {
+  width: 104px;
+  height: 64px;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.weather .data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weather .data p {
+  font-size: 1em;
+  color: #222222;
+  opacity: 80%;
+  text-align: center;
+}
+
+.weather .data p span {
+  color: black;
+  font-weight: bold;
+}
+
+.loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.loader {
+  width: 100px;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+  background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+  background-size: calc(100% / 3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  20% {
+    background-position: 0% 0%, 50% 50%, 100% 50%;
+  }
+  40% {
+    background-position: 0% 100%, 50% 0%, 100% 50%;
+  }
+  60% {
+    background-position: 0% 50%, 50% 100%, 100% 0%;
+  }
+  80% {
+    background-position: 0% 50%, 50% 50%, 100% 100%;
+  }
 }
